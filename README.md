@@ -6,8 +6,9 @@ The repository contains code samples in Coq, ATS, Agda, and Lean, in the order c
 
 ## Installation - VirtualBox Image
 
-We provide a VirtualBox VDI image shipped with working installations of all the languages and tools we use. The image contains Ubuntu 18.04.1 X64, with
-a single user `cs591k1` and password `cs591k1`. 
+We provide a [VirtualBox VDI image]() shipped with working installations of all the languages and tools we use.
+Uncompress the downloaded zip archive in a location of choosing, open the directory, and double click on CS591K1.vbox
+to run the virtual image with VirtualBox. The image contains Ubuntu 18.04.1 X64, with a single user `cs591k1` and password `cs591k1`. 
 
 You can download VirtualBox from [here](https://www.virtualbox.org/wiki/Downloads). The image already has VirtualBox's guest-additions installed,
 which supports bi-directional shared clipboard and file drag-and-drop, so that the virtual machine and your host operating system can interact smoothly.
@@ -20,7 +21,7 @@ If you do not want to use the image, you can download each tool separately on yo
 
 ### Coq
 
-We use the latest Coq version: Coq 8.8.2. If you are using Windows or Mac, you can install Coq by using the appropriate installer [file](https://github.com/coq/coq/releases/tag/V8.8.2). 
+We use the latest Coq version (Coq 8.8.2). If you are using Windows or Mac, you can install Coq by using the appropriate installer [file](https://github.com/coq/coq/releases/tag/V8.8.2). 
 On Linux and mac, we recommend [installing Coq with OPAM](https://coq.inria.fr/opam/www/using.html) (OCaml package manager).
 
 You can either use CoqIDE or Proof General to edit coq files interactively. CoqIDE comes built in with coq, but can be unresponsive or slow sometimes.
@@ -39,12 +40,45 @@ make lib # compile the FRAP library
 
 ### Lean
 
-Lean 3.4.1
+We use the latest Lean version (Lean 3.4.1). You can download it from [here](https://leanprover.github.io/download/).
+You can use the emacs [lean-mode](https://github.com/leanprover/lean-mode) to facilitate using lean with emacs, or you can
+use [Lean's Virtual Studio extension](https://marketplace.visualstudio.com/items?itemName=jroesch.lean) to edit Lean proofs
+within the Virtual Studio IDE.
 
-ATS2-0.3.12
+## Agda
 
-Agda 2.6.0
+We use the latest Agda version (Agda 2.5.4), We recommend installing Agda using Haskel's package manager Hackage. To use hackage, you must install these 
+[prerequisites](https://agda.readthedocs.io/en/latest/getting-started/prerequisites.html#prerequisites). After installing the prerequisites, follow these
+[instructions](https://agda.readthedocs.io/en/latest/getting-started/installation.html#installation-from-hackage) to install Agda, and Emacs' 
+agda-mode to facilitate editing Agda scripts. We will use the Agda standard library frequently, follow these [instructions](https://github.com/agda/agda-stdlib)
+to install it, be sure to add it to the defaults file, so that it is included with all Agda projects by default.
 
-Since we rely on the Adam Chlipala's [FRAP]() library for Coq. 
+## ATS
 
+We use the latest (pre-stable) ATS version (ATS2-0.3.13). We recommend using 
+[C9-ATS2-install-latest.sh](https://github.com/ats-lang/ats-lang.github.io/tree/master/SCRIPT) script
+to download ATS if using ubuntu. We will frequently rely on Z3 to solve constraints automatically,
+install the [Z3](https://github.com/Z3Prover/z3/releases) theorem prover.
+
+If you are not using ubuntu, you will need to perform these steps:
+1. Install these dependencies: build-essential libgmp-dev libgc-dev libjson-c-dev (or equivalent for your platform)
+2. Git Clone ATS source code from source forge: git://git.code.sf.net/p/ats2-lang/code or 
+download from [here](https://sourceforge.net/projects/ats2-lang/files/ats2-lang/).
+3. Git clone ATS-contrib: https://github.com/githwxi/ATS-Postiats-contrib.git
+4. You need to export 2 environment variables:
+   PATSHOME=<path>/<to>/<ATS>
+   PATSCONTRIB=<path>/<to>/<ATS-contrib>
+   Additionally, you must append <path>/<to>/<ATS>/bin to the PATH environment variable.
+5. inside the <ATS> directory, run ./configure and make all, this will essentially compile ATS
+6. Compile ATS Z3 extension by running make DATS\_C, make all, and make all in <ATS>/contrib/ATS-extsolve, 
+<ATS>/contrib/ATS-extsolve-z3, and <ATS>/contrib/ATS-extsolve-smt2 respectively. Move bin/patsolve\_z3 and bin/patsolve\_smt2 
+from the last two directories to <ATS>/bin.
+7. run make all and move the result binaries to <ATS>/bin inside <ATS>/contrib/CATS-parsemit and ATS/contrib/CATS-atscc2py3
+
+Note: on some systems, installing Z3 will only install a libz3.so shared object file, ATS requires libz3.so.4.8. You can solve
+this by creating a symbolic link (shortcut) or copying libz3.so to libz3.so.4.8 in the same directory it is installed in
+(by default /usr/lib/ in unix systems).
+
+These commands should run fine on macOS and the various linux distributions, if using windows, install and use 
+[cygwin](https://cygwin.com/install.html), to mimic a unix shell environment.
 
