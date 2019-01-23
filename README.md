@@ -45,7 +45,7 @@ You can use the emacs [lean-mode](https://github.com/leanprover/lean-mode) to fa
 use [Lean's Virtual Studio extension](https://marketplace.visualstudio.com/items?itemName=jroesch.lean) to edit Lean proofs
 within the Virtual Studio IDE.
 
-## Agda
+### Agda
 
 We use the latest Agda version (Agda 2.5.4), We recommend installing Agda using Haskel's package manager Hackage. To use hackage, you must install these 
 [prerequisites](https://agda.readthedocs.io/en/latest/getting-started/prerequisites.html#prerequisites). After installing the prerequisites, follow these
@@ -53,7 +53,7 @@ We use the latest Agda version (Agda 2.5.4), We recommend installing Agda using 
 agda-mode to facilitate editing Agda scripts. We will use the Agda standard library frequently, follow these [instructions](https://github.com/agda/agda-stdlib)
 to install it, be sure to add it to the defaults file, so that it is included with all Agda projects by default.
 
-## ATS
+### ATS
 
 We use the latest (pre-stable) ATS version (ATS2-0.3.13). We recommend using 
 [C9-ATS2-install-latest.sh](https://github.com/ats-lang/ats-lang.github.io/tree/master/SCRIPT) script
