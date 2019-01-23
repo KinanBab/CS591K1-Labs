@@ -9,8 +9,6 @@
  *    You can easily operate on them using recursion and pattern matching.
  *)
 
-(* Require Import List. *)
-
 (*
  * Keyword Inductive: Inductive type definition.
  * It is inductive because it is built bottom-up.

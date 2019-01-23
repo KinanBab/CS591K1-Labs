@@ -121,7 +121,6 @@ Fixpoint is_binary_search (t: tree) : bool :=
  * =, >, < gives back props (statements for proofs), =?, >?, <? give back booleans (values for code).
  * Coq gives us a bunch of helpers for translating booleans to props.
  *)
-Require Import Bool.
 Require Import binary_tree_helpers.
 
 Lemma not_in_less:
