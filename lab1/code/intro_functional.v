@@ -18,7 +18,7 @@
  * Syntax := is assignment (similar to = in imperative languages)
  * Syntax |  for specifying cases of the definition (more specifically type constructors)
  *)
-Inductive my_natural_linked_list :=
+Inductive my_natural_linked_list : Type :=
   (* First case: Empty linked list contains no nodes *)
   (* Empty is the name of the constructor that gives us an Empty list *)
   (* Syntax : specifies the type of what is on the left hand side *)
@@ -59,7 +59,7 @@ Check NodeA nat 3 (EmptyA nat). (* The types must be the same for an EmptyA and 
 
 (* Annoying that we have to specify the type every time *)
 (* But we can ask Coq to infer the types automatically ! *)
-Set Implicit Arguments. (* Ask coq to infere implicity type arguments by default *)
+Set Implicit Arguments. (* Ask coq to infer implicity type arguments by default *)
 Inductive my_list (A: Type) := (* must redefine list for implicit arguments to take effect *)
   | my_nil
   | my_cons (head: A) (tail: my_list A).
@@ -69,8 +69,6 @@ Arguments my_nil [A]. (* Ask coq to infer my_nil type from context *)
 Check my_nil.
 Check my_cons 3 my_nil.
 Check my_cons 3 (my_cons 2 my_nil).
-
-
 
 (*
  * Ok, enough definitions, how do we use these types ?
@@ -88,7 +86,7 @@ Compute my_list_size (my_cons 3 (my_cons 2 (my_cons 1 my_nil))).
 
 Fixpoint last_element (list: my_list nat) : nat  :=
   match list with
-  (* this could be confusing! ideally, we want some special null value, 
+  (* this could be confusing! ideally, we want some special null value,
       or an error, or to require that list is not empty *)
   | my_nil => 0
   (* this is all fine *)
@@ -96,7 +94,24 @@ Fixpoint last_element (list: my_list nat) : nat  :=
   | my_cons head tail => last_element tail
   end.
 
+Fixpoint reverse' (A: Type) (list accumulator: my_list A) : my_list A :=
+  match list with
+  | my_nil => accumulator
+  | my_cons head tail =>
+    reverse' tail (my_cons head accumulator)
+  end.
+Fixpoint reverse (A: Type) (list: my_list A) : my_list A :=
+  reverse' list my_nil.
 
+Compute reverse (my_cons 3 (my_cons 2 (my_cons 1 my_nil))).
+
+Fixpoint my_list_sum (list: my_list nat) : nat :=
+  match list with
+  | my_nil => 0
+  | my_cons element list' => element + (my_list_sum list')
+  end.
+
+Compute (my_list_sum (my_cons 3 (my_cons 2 (my_cons 1 my_nil)))). (* Gives 6 *)
 
 (* Luckily we do not have to define all these things every
    time our selves *)
@@ -111,5 +126,3 @@ Locate app. (* Finds the location/module of the thing you are looking for *)
 (* Additionally, we are using Adam Chlipala's very nice library
    that simplifies Coq development and proofs a lot! *)
 Require Import Frap.
-
-

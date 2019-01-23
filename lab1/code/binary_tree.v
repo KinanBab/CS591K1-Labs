@@ -8,7 +8,7 @@ Inductive tree :=
 (*       1       *)
 (*   2      4    *)
 (*     3         *)
-Definition example := 
+Definition example :=
   cons (cons nil 2 (cons nil 3 nil)) 1 (cons nil 4 nil).
 
 (* To define search, we need to check for equality and less than for nats,
@@ -135,8 +135,8 @@ Proof.
   + simplify.
 
     expand_ands.
-    specialize IHt1 with (n := n).
-    specialize IHt2 with (n := n).
+    specialize IHt1 with (e := e) (n := n).
+    specialize IHt2 with (e := e) (n := n).
 
     apply IHt1 in H0; try assumption.
     apply IHt2 in H3; try assumption.
@@ -160,8 +160,8 @@ Proof.
   + simplify.
 
     expand_ands.
-    specialize IHt1 with (n := n).
-    specialize IHt2 with (n := n).
+    specialize IHt1 with (e := e) (n := n).
+    specialize IHt2 with (e := e) (n := n).
 
     apply IHt1 in H0; try assumption.
     apply IHt2 in H3; try assumption.
@@ -175,7 +175,7 @@ Proof.
 Qed.
 
 (* Main correctness theorem:
- * For every tree and number, if the tree is a search tree, then binary search 
+ * For every tree and number, if the tree is a search tree, then binary search
  * gives the same result as linear search.
  *)
 Theorem binary_search_correct:
