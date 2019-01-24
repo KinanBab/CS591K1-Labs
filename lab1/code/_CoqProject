@@ -1,7 +1,2 @@
 -R ../../FRAP Frap
 intro_functional.v
-binary_tree.v
-binary_tree_helpers.v
-binary_search.v
-arrays.v
-imperative.v

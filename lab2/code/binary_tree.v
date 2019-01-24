@@ -19,6 +19,7 @@ Print Nat.leb.
 Search (bool -> bool -> bool).
 Print orb.
 
+(* Implementation of linear search *)
 Fixpoint search (t: tree) (n: nat) : bool :=
   match t with
   | nil => false
@@ -32,6 +33,7 @@ Fixpoint search (t: tree) (n: nat) : bool :=
 Compute (search example 2).
 Compute (search example 3).
 
+(* Implementation of binary search *)
 Fixpoint binary_search (t: tree) (n: nat) : bool :=
   match t with
   | nil => false
@@ -189,6 +191,8 @@ Proof.
     cases (root =? n).
     - trivial.
     - cases (Nat.leb root n).
+      (* Case where root <= n *)
+      (* We basically must show that n cannot exist in the left tree *)
       * simplify.
         expand_ands.
         assert (search t1 n = false).
@@ -201,6 +205,8 @@ Proof.
            apply IHt2 in H.
            rewrite H.
            propositional.
+      (* Case where root > n *)
+      (* We basically must show that n cannot exist in the right tree *)
       * simplify.
         expand_ands.
         assert (search t2 n = false).
