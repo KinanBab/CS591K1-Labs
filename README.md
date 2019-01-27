@@ -28,16 +28,6 @@ You can either use CoqIDE or Proof General to edit coq files interactively. CoqI
 Proof General is an Emacs interface to simplify editing and running Coq files, you can download it using these [instructions](https://proofgeneral.github.io/).
 Both editors are shipped with our VirtualBox image. We recommend using Proof General, since we will be using emacs for the other theorem provers as well.
 
-We use some of the definitions and tactics from Adam Chlipala's [FRAP Coq Library](https://github.com/achlipala/frap). It is included as a git submodule within
-this repository, you need to initialize this submodule and compile the library the first time you clone this repo using:
-```bash
-git clone https://github.com/KinanBab/CS591K1-Labs <path>/<to>/<repo> # clone this repo
-cd <path>/<to>/<repo>
-git submodule update # initialize the FRAP submodule
-cd FRAP
-make lib # compile the FRAP library
-```
-
 ### Lean
 
 We use the latest Lean version (Lean 3.4.1). You can download it from [here](https://leanprover.github.io/download/).
@@ -82,3 +72,20 @@ this by creating a symbolic link (shortcut) or copying libz3.so to libz3.so.4.8 
 These commands should run fine on macOS and the various linux distributions, if using windows, install and use 
 [cygwin](https://cygwin.com/install.html), to mimic a unix shell environment.
 
+# Compiling and Running Lab Code
+
+## Coq
+We use some of the definitions and tactics from Adam Chlipala's [FRAP Coq Library](https://github.com/achlipala/frap). It is included as a git submodule within
+this repository, you need to initialize this submodule and compile the library the first time you clone this repo using:
+```bash
+git clone https://github.com/KinanBab/CS591K1-Labs <path>/<to>/<repo> # clone this repo
+cd <path>/<to>/<repo>
+git submoudle init # initialize the FRAP submodule
+git submodule update # pulls the correct version the FRAP library
+cd FRAP
+make lib # compile the FRAP library
+```
+
+After having compiled FRAP, you will need to compile any lab code you wish to run, to do that, run `make` inside the code directory of the desired lab. After the code is compiled, you can open any desired .v file with coqide or proof general, and go through the file interactively.
+
+You need to compile the contents of the directory before using it interactively, since Coq library/modules systems requires that any module you include be already compiled into a .vo file. Check out the content of the Makefiles inside the lab code directories to see how to compile manually from the command line, and Check out \_CoqProject file to see how to define a Coq project with dependencies.
