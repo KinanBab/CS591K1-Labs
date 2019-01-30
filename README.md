@@ -72,7 +72,7 @@ this by creating a symbolic link (shortcut) or copying libz3.so to libz3.so.4.8 
 These commands should run fine on macOS and the various linux distributions, if using windows, install and use 
 [cygwin](https://cygwin.com/install.html), to mimic a unix shell environment.
 
-# Compiling and Running Lab Code
+# Compiling and Running Lab and Homework Code
 
 ## Coq
 We use some of the definitions and tactics from Adam Chlipala's [FRAP Coq Library](https://github.com/achlipala/frap). It is included as a git submodule within
@@ -87,5 +87,16 @@ make lib # compile the FRAP library
 ```
 
 After having compiled FRAP, you will need to compile any lab code you wish to run, to do that, run `make` inside the code directory of the desired lab. After the code is compiled, you can open any desired .v file with coqide or proof general, and go through the file interactively.
+```bash
+cd /lab1/code # go to that the lab code
+make # compile all the dependencies
+```
 
-You need to compile the contents of the directory before using it interactively, since Coq library/modules systems requires that any module you include be already compiled into a .vo file. Check out the content of the Makefiles inside the lab code directories to see how to compile manually from the command line, and Check out \_CoqProject file to see how to define a Coq project with dependencies.
+For homework, You need to compile the provided modeling and problem statement code, before being able to use them in your solutions. Coq library/modules systems requires that any module you include be already compiled into a .vo file. You can do that by using the provided Makefiles.
+```bash
+cd /homework1/Problem1 # go to some homework problem
+make # compile all the dependencies.
+# Now you can edit Solution.v interactively using CoqIDE or proof-general
+```
+
+Check out the content of the Makefiles inside the lab and homework code directories to see how to compile manually from the command line, and Check out the \_CoqProject files to see how to define a Coq project with modules and dependencies.
