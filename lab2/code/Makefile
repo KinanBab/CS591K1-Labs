@@ -1,13 +1,13 @@
 COQC=coqc -q -R ../../FRAP Frap
 
+.PHONY: dependencies
+dependencies: binary_tree_helpers.vo
+
 .PHONY: all
 all: binary_tree.vo
 
-binary_tree.vo: binary_tree_helpers.vo binary_tree.v
-	$(COQC) binary_tree
-
-binary_tree_helpers.vo: binary_tree_helpers.v
-	$(COQC) binary_tree_helpers
+%.vo : %.v
+	$(COQC) $<
 
 clean:
 	rm *.vo *.aux *.glob -rf

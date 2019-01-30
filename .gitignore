@@ -1,5 +1,5 @@
 *.vo
 *.aux
 *.glob
-*/present
+**/*-present.v
 draft*/
