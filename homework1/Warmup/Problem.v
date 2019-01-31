@@ -5,6 +5,6 @@ Module Type Warmup.
   Axiom DeMorgan2: forall (p q: Prop),
     (~p \/ ~q) -> ~ (p /\ q).
 
-  Axiom DeMorgan4: forall (p q: Prop),
-    (~p /\ ~q) -> ~ (p \/ q).
+  Axiom DeMorgan1: forall (p q: Prop),
+  ~(p /\ q) -> (~p \/ ~q).
 End Warmup.

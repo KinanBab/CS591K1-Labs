@@ -58,18 +58,17 @@ Proof.
 Admitted.
 
 
-(* Part 2 - Prove deMorgan Law 4: Remember you will need Classical logic's Law of Excluded middle for this *)
+(* Part 2 - Prove deMorgan Law 1: Remember you will need Classical logic's Law of Excluded middle for this *)
 Require Import Classical. (* Imports the classical logic library with the classical logic axiom: law of excluded middle *)
 Check NNPP. (* Law of excluded middle *)
 (* Using NPP will allow you to carry on with the proof at step 9 in page 6 in 
 https://www.dropbox.com/s/li86bh9vgztvfzq/natural-deduction-examples-in-IPC.pdf?dl=0 *)
 
 (* DO NOT USE PROPOSITIONAL, TAUTO, or FIRST_ORDER *)
-Theorem DeMorgan4: forall (p q: Prop),
-  (~p /\ ~q) -> ~ (p \/ q).
+Theorem DeMorgan1: forall (p q: Prop),
+  ~(p /\ q) -> (~p \/ ~q).
 Proof.
   (* Proof goes here *)
-
 Admitted.
 
 (* Answer to part 3 goes here, put it in a comment: *)
