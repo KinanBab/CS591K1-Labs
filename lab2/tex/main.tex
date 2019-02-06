@@ -64,7 +64,7 @@ Fixpoint binary_search (t: tree) (n: nat) : bool :=
 
 Keep in mind that binary\_search requires the tree be a binary search tree
 to work correctly. A search tree corresponds to a sorted array in some ways.
-All elements on the left of some element must be smaller than or equal to it, 
+All elements on the left of some element must be smaller than or equal to it,
 while elements on the right must be greater than or equal to it. \\
 
 One possible way to specify what it means for our binary\_search algorithm above to
@@ -118,7 +118,7 @@ for the inductive step, we perform case analysis on the result of comparing the 
 have three cases, in the first, the root and element are equal, and the algorithm returns true, this is trivial. In the second,
 the algorithm goes left, and in the third the algorithm goes right. We used the above lemma to show that running linear
 search on the right and left subtrees respectively is guaranteed to return false, then rely on the inductive hypothesis
-to finish the proof. The exact proof can be found in binary\_tree.v 
+to finish the proof. The exact proof can be found in binary\_tree.v
 
 \begin{minted}{coq}
 Lemma not_in_less:
@@ -136,12 +136,13 @@ The standard library tactics we used are: (1) trivial (2) specialize (3) apply (
 
 Tactics we used from Frap library include:
 \begin{enumerate}
-    \item simplifiy: automatic rewriting and unfolding of complex expressions, splitting up of premises and conclusions, and other obvious symbols
+    \item simplify: automatic rewriting and unfolding of complex expressions, splitting up of premises and conclusions, and other obvious symbols
                      manipulation and simplification.
     \item induct: similar to Coq's standard induction, but enhanced to support other forms of induction.
     \item linear\_arithmetic: attempts to prove the goal from any combination of hypothesis by using the rules of linear arithmetic (naturals with +, <, = no multiplications).
     \item propositional: attempts to prove the goal from any combination of hypothesis by using inference rules of (intuitionistic) propositional logic, also has the side effect
-                         of rewritting/simplifying boolean formulas. \\
+                         of rewritting/simplifying boolean formulas.
+    \item equality: tactic that encpasulates equality and its property (symmetry, transitivity). \\
 \end{enumerate}
 
 Finally, the last tactics we used are custom tactics defined in binary\_tree\_helpers.v:
@@ -163,7 +164,7 @@ Recommended references:
 Additional references:
 \begin{enumerate}
     \item Notes from UPenn on the Basics of Coq \href{https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html}{https://softwarefoundations.cis.upenn.edu/lf-current/Basics.html}
-    \item Old tutorial by Jean-Christophe Filliatre\\ \href{http://www.cse.chalmers.se/research/group/logic/TypesSS05/Extra/filliatre\_sl1.pdf}{http://www.cse.chalmers.se/research/group/logic/TypesSS05/Extra/filliatre\_sl1.pdf} 
+    \item Old tutorial by Jean-Christophe Filliatre\\ \href{http://www.cse.chalmers.se/research/group/logic/TypesSS05/Extra/filliatre\_sl1.pdf}{http://www.cse.chalmers.se/research/group/logic/TypesSS05/Extra/filliatre\_sl1.pdf}
 \end{enumerate}
 
 \end{document}

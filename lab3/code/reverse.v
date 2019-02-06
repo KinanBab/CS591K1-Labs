@@ -94,25 +94,28 @@ Qed.
 Search (nat -> list _ ->  _).
 Search (list _ ->  nat -> _).
 Theorem my_reverse_really_correct: forall (A: Type) (l: list A),
+    length l = length (my_reverse l) /\
     forall (i: nat), i < length l -> nth_error l i = nth_error (my_reverse l) (length l - i - 1).
 Proof.
   pose my_reverse_correct1.
   simplify.
-  induct l.
-  + simplify. linear_arithmetic.
-  + cases i.
-    -- simplify.
-       rewrite nth_error_app2.
-       ++ rewrite e with A l.
-          assert (length (my_reverse l) - 0 - length (my_reverse l) = 0) by linear_arithmetic.
-          rewrite H0.
-          simplify.
-          equality.
-       ++ specialize e with A l.
-          linear_arithmetic.
-    -- simplify.
-       rewrite nth_error_app1.
-       ++ apply IHl. linear_arithmetic.
-       ++ specialize e with A l.
-          linear_arithmetic.
+  propositional.
+  - apply e.
+  - induct l.
+    + simplify. linear_arithmetic.
+    + cases i.
+      -- simplify.
+         rewrite nth_error_app2.
+         ++ rewrite e with A l.
+            assert (length (my_reverse l) - 0 - length (my_reverse l) = 0) by linear_arithmetic.
+            rewrite H0.
+            simplify.
+            equality.
+         ++ specialize e with A l.
+            linear_arithmetic.
+      -- simplify.
+         rewrite nth_error_app1.
+         ++ apply IHl. linear_arithmetic.
+         ++ specialize e with A l.
+            linear_arithmetic.
 Qed.

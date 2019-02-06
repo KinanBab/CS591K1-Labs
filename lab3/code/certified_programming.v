@@ -7,7 +7,7 @@ Program Fixpoint sum_to (n: nat): {r: nat | 2 * r = n * (n+1) } :=
   end.
 
 Check sum_to_obligation_1.
-Obligation 2.
+Obligation 2 of sum_to.
   simpl.
   assert (S (n' + x + S (n' + x + 0)) = n' + (x + (x + 0)) + n' + 2) by omega.
   rewrite H. clear H.
