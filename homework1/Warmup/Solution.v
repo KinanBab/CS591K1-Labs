@@ -58,9 +58,10 @@ Proof.
 Admitted.
 
 
-(* Part 2 - Prove deMorgan Law 1: Remember you will need Classical logic's Law of Excluded middle for this *)
+(* Part 2 - Prove deMorgan Law 1: Remember you will need Classical logic for this *)
 Require Import Classical. (* Imports the classical logic library with the classical logic axiom: law of excluded middle *)
-Check NNPP. (* Law of excluded middle *)
+Check NNPP. (* Double negation elimination *)
+Check classic. (* Law of Excluded Middle *)
 (* Using NPP will allow you to carry on with the proof at step 9 in page 6 in 
 https://www.dropbox.com/s/li86bh9vgztvfzq/natural-deduction-examples-in-IPC.pdf?dl=0 *)
 
