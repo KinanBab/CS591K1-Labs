@@ -8,7 +8,7 @@ Definition is_sorted (arr: heap) (startI: nat) (endI: nat): Prop :=
 
 (* The program for merging two arrays:
    1. It assumes that two arrays are already provided on the heap, the 
-   first between indices [0, len1) and the second between [len1, len2).
+   first between indices [0, len1) and the second between [len1, len1 + len2).
    2. It writes out a merged sorted array to the end of the heap, so
    that the first two arrays are not changed, and are followed by the sorted
    array between indices [len1+len2, 2*(len1+len2) )
@@ -28,7 +28,7 @@ Definition merge_program (len1 len2: nat) (I: nat -> nat -> assertion): cmd := (
         we choose arr[i2]. We must pay attention to special cases where
         i1 or i2 are out of range. *)
     _if_ "i1" < len1 _then_
-      _if_ "i2" < len2 _then_
+      _if_ "i2" < len1 + len2 _then_
         _if_ *["i1"] < *["i2"] _then_
           *["i"] <- *["i1"] ;;
           "i1" <- "i1" + 1
