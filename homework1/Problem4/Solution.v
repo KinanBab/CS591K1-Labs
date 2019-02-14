@@ -16,7 +16,7 @@ Definition merge_invariant (len1 len2: nat): assertion :=
 
 (* Prove the basic version of correctness *)
 Theorem merge_correct: forall (len1 len2: nat),
-  {{ fun h v => is_sorted h 0 len1 /\ is_sorted h len1 len2 }}
+  {{ fun h v => is_sorted h 0 len1 /\ is_sorted h len1 (len1 + len2) }}
   merge_program len1 len2 merge_invariant
   {{ fun h v => (is_sorted h (len1 + len2) (len1 + len2 + len1 + len2)) }}.
 Proof.

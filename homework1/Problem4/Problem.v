@@ -33,8 +33,8 @@ Definition merge_program (len1 len2: nat) (I: nat -> nat -> assertion): cmd := (
           *["i"] <- *["i1"] ;;
           "i1" <- "i1" + 1
         _else_
-          *["i"] <- *["i1"] ;;
-          "i1" <- "i1" + 1
+          *["i"] <- *["i2"] ;;
+          "i2" <- "i2" + 1
         _done_
       _else_
         *["i"] <- *["i1"] ;;
@@ -83,7 +83,7 @@ Module Type Problem4.
      6. Obligation for showing that the loop invariant implies the post condition
         when the loop is done. You will want to use 'is_sorted_smaller' here. *)
   Axiom merge_correct: forall (len1 len2: nat),
-    {{ fun h v => is_sorted h 0 len1 /\ is_sorted h len1 len2 }}
+    {{ fun h v => is_sorted h 0 len1 /\ is_sorted h len1 (len1 + len2) }}
     merge_program len1 len2 merge_invariant
     {{ fun h v => (is_sorted h (len1 + len2) (len1 + len2 + len1 + len2)) }}.
 End Problem4.
