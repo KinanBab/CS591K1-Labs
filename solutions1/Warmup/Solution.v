@@ -55,20 +55,55 @@ Page 4 in https://www.dropbox.com/s/li86bh9vgztvfzq/natural-deduction-examples-i
 Theorem DeMorgan2: forall (p q: Prop),
   (~p \/ ~q) -> ~ (p /\ q).
 Proof.
-Admitted.
+  intros.
+  unfold "~" in *.
+  intros.
+  destruct H.
+  + apply H.
+    apply proj1 with (B := q); assumption.
+  + apply H.
+    (* instead of specifying B, we can use eapply *)
+    eapply proj2. exact H0.
+Restart.
+  propositional.
+Qed.
 
 
-(* Part 2 - Prove deMorgan Law 4: Remember you will need Classical logic's Law of Excluded middle for this *)
+(* Part 2 - Prove deMorgan Law 1: Remember you will need Classical logic for this *)
 Require Import Classical. (* Imports the classical logic library with the classical logic axiom: law of excluded middle *)
-Check NNPP. (* Law of excluded middle *)
+Check NNPP. (* Double negation elimination *)
+Check classic. (* Law of Excluded Middle *)
 (* Using NPP will allow you to carry on with the proof at step 9 in page 6 in 
 https://www.dropbox.com/s/li86bh9vgztvfzq/natural-deduction-examples-in-IPC.pdf?dl=0 *)
 
 (* DO NOT USE PROPOSITIONAL, TAUTO, or FIRST_ORDER *)
-Theorem DeMorgan4: forall (p q: Prop),
-  (~p /\ ~q) -> ~ (p \/ q).
+Theorem DeMorgan1: forall (p q: Prop),
+  ~(p /\ q) -> (~p \/ ~q).
 Proof.
-  (* Proof goes here *)
-Admitted.
+  intros.
+  (* Adds law of excluded middle to our assumptions *)
+  pose classic.
+  pose classic. (* twice, once for p and once for q *)
+  specialize o with p.
+  specialize o0 with q.
 
-(* Answer to part 3 goes here, put it in a comment: *)
+  unfold "~" in *.
+  intros.
+
+  destruct o; destruct o0.
+  + (* both p and q are true, can usee H to get false *)
+    exfalso.
+    apply H. 
+    apply conj; assumption.
+  + apply or_intror; assumption.
+  + apply or_introl; assumption.
+  + apply or_intror; assumption.
+
+Restart.
+  (* propositional cannot solve this by itself! *)
+  propositional.
+  (* But if we add law of excluded middle (or NNPP), then it can ! *)
+  specialize classic with p.
+  specialize classic with q.
+  propositional.
+Qed.
