@@ -1,0 +1,12 @@
+Proofs:
+1. Encoding Logic: http://ats-lang.sourceforge.net/EXAMPLE/EFFECTIVATS/prop-logic/main.html
+2. Bools vs Props: two styles of theorem proving:
+    http://ats-lang.sourceforge.net/EXAMPLE/EFFECTIVATS/PwTP-bool-vs-prop/main.html
+
+
+Programming with Dependent Types:
+1. Introduction to Dependent Types: http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/p2241.html
+2. Example with safe Matrix access: http://ats-lang.sourceforge.net/DOCUMENT/INT2PROGINATS/HTML/x3196.html
+3. Sample Lemmas/Proofs for arithmetic:
+    Docs: http://ats-lang.sourceforge.net/LIBRARY/prelude/SATS/DOCUGEN/HTML/arith_prf.html
+    Implementation: https://github.com/ats-lang/ats-lang.github.io/blob/master/ATS-Postiats/prelude/DATS/arith_prf.dats
