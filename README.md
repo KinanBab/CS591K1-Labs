@@ -37,11 +37,11 @@ within the Virtual Studio IDE.
 
 ### Agda
 
-We use the latest Agda version (Agda 2.5.4), We recommend installing Agda using Haskel's package manager Hackage. To use hackage, you must install these 
+We use the latest Agda version (Agda 2.5.4.2), We recommend installing Agda using Haskel's package manager Hackage. To use hackage, you must install these 
 [prerequisites](https://agda.readthedocs.io/en/latest/getting-started/prerequisites.html#prerequisites). After installing the prerequisites, follow these
 [instructions](https://agda.readthedocs.io/en/latest/getting-started/installation.html#installation-from-hackage) to install Agda, and Emacs' 
 agda-mode to facilitate editing Agda scripts. We will use the Agda standard library frequently, follow these [instructions](https://github.com/agda/agda-stdlib)
-to install it, be sure to add it to the defaults file, so that it is included with all Agda projects by default.
+to install it, use version 0.17 and not version 1.0. Be sure to add it to the defaults file, so that it is included with all Agda projects by default.
 
 ### ATS
 
