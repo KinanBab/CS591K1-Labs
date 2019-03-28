@@ -13,20 +13,30 @@
 
 // Part A: implement the given function
 fun {A: t@ype} filter1 {n: nat} (f: A -> bool, l: list (A, n)): [m: nat] list(A, m) =
-    // implementation goes here
-
+    case l of
+    | list_nil() => list_nil()
+    | list_cons(x, ls) =>
+        if f(x)
+            then list_cons(x, filter1(f, ls))
+            else filter1(f, ls)
 
 // Part B: implement the given function, make sure ATS type checks correctly
 fun {A: t@ype} filter2 {n: nat} (f: A -> bool, l: list (A, n)): [m: nat | m <= n] list(A, m) =
-    // implementation goes here
-
-
+    case l of
+    | list_nil() => list_nil()
+    | list_cons(x, ls) =>
+        if f(x)
+            then list_cons(x, filter2(f, ls))
+            else filter2(f, ls)
+    
 // Part D: the previous type is clearly not enough for correctness
 // implement a counter-example in ATS, a counter example
 // is an implementation that ATS accepts (that compiles) but is not correct.
 fun {A: t@ype} filter_incorrect {n: nat} (f: A -> bool, l: list (A, n)): [m: nat | m <= n] list(A, m) =
-    // implementation goes here
+    list_nil()
 
+fun {A: t@ype} filter_incorrect2 {n: nat} (f: A -> bool, l: list (A, n)): [m: nat | m <= n] list(A, m) =
+    l
 
 // Part C: bonus
 // Can you improve the type signature even more?

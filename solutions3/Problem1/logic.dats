@@ -97,6 +97,7 @@ primplement and_commutative(pf) =
 
 // Part A: encode false elemination (exfalso):
 // implementation goes here
+extern praxi exfalso {A: prop} (pf: PFALSE): A
 
 
 // Part B: prove the following statements:
@@ -105,6 +106,7 @@ extern prfun neg_elim {A: prop} (pf0: A, pf1: ~A): PFALSE
 
 primplement neg_elim(pf0, pf1) =
   // implementation goes here
+  impl_elim(pf1, pf0)
 
 
 // Part C: prove that A ->> A
@@ -112,10 +114,44 @@ primplement neg_elim(pf0, pf1) =
 //       is equivalent to the identity function!
 prfn tauto {A: prop} (): A ->> A =
     // implementation goes here
+    impl_intro(lam (x) => x)
 
 
 // Part D: formulate and prove the associativity of or, namely
 // that (X || Y) || Z and X || (Y || Z) are equivalent / the same
+
+extern prfun or_ass_l {A, B, C: prop} (pf: (A || B) || C): A || (B || C)
+extern prfun or_ass_r {A, B, C: prop} (pf: A || (B || C)): (A || B) || C
+
+primplement or_ass_l {A, B, C: prop} (pf) =
+let
+    prfn fromA: A -> (A || (B || C)) = lam (pfA) => or_intro_l(pfA)
+    prfn fromB: B -> (A || (B || C)) = lam (pfB) => or_intro_r(or_intro_l(pfB))
+    prfn fromC: C -> (A || (B || C)) = lam (pfC) => or_intro_r(or_intro_r(pfC))
+
+    prval fA = impl_intro(fromA)
+    prval fB = impl_intro(fromB)
+    prval fC = impl_intro(fromC)
+
+    prfn fromLeft: (A || B) -> (A || (B || C)) = lam(pf) => or_elim(pf, fA, fB)
+in
+    or_elim(pf, impl_intro(fromLeft), fC)
+end
+
+primplement or_ass_r {A, B, C: prop} (pf) =
+let
+    prfn fromA: A -> ((A || B) || C) = lam (pfA) => or_intro_l(or_intro_l(pfA))
+    prfn fromB: B -> ((A || B) || C) = lam (pfB) => or_intro_l(or_intro_r(pfB))
+    prfn fromC: C -> ((A || B) || C) = lam (pfC) => or_intro_r(pfC)
+
+    prval fA = impl_intro(fromA)
+    prval fB = impl_intro(fromB)
+    prval fC = impl_intro(fromC)
+
+    prfn fromRight: (B || C) -> ((A || B) || C) = lam(pf) => or_elim(pf, fB, fC)
+in
+    or_elim(pf, fA, impl_intro(fromRight))
+end
 
 
 

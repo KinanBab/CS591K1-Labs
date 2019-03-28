@@ -34,26 +34,79 @@
  *           do you have suggestions to improve this in ATS?
  *)
 
-
-// Solutions goes here
-
 // Part A
-
+fun dot {n: nat} (l1: list(int, n), l2: list(int, n)): int =
+    case(l1, l2) of
+    | (list_nil(), list_nil()) => 0
+    | (list_cons(x1, l1), list_cons(x2, l2)) => x1 * x2 + dot(l1, l2)
 
 // Part B
-
+fun partialsum {n: nat} (l: list(int, n)): list(int, n) =
+let
+    fun aux {m: nat | m <= n} (l: list(int, m), s: int): list(int, m) =
+        case(l) of
+        | list_nil() => list_nil()
+        | list_cons(x, l) => list_cons(x + s, aux(l, x + s))
+in
+    aux(l, 0)
+end
 
 // Part C
+dataprop EVEN(int, bool) =
+| EVEN_ZERO (0, true)
+| ODD_ONE (1, false)
+| {n: int} {b: bool} EVEN_IND (n+1, ~b) of EVEN(n, b)
 
+fun is_even {n: nat} (n: int(n)): [b: bool] (EVEN(n, b) | bool(b)) =
+    if n = 0 then
+        (EVEN_ZERO | true)
+    else if n = 1 then
+        (ODD_ONE | false)
+    else
+        let
+            val (EVEN_REC | r) = is_even(n-1) where {
+                prval () = $solver_assert(n > 1)
+            }
+        in
+            (EVEN_IND(EVEN_REC) | ~r)
+        end
 
 // Part D
+datasort intlist =
+| snil
+| scons of (int, intlist)
 
+dataprop MAX(intlist, int) =
+| MAX_NIL (snil(), 0)
+| {l: intlist} {m: int} {x: int | m > x} MAX_CONS1 (scons(x, l), m) of (MAX(l, m))
+| {l: intlist} {m: int} {x: int | m <= x} MAX_CONS2 (scons(x, l), x) of (MAX(l, m))
 
+datatype dIntList (intlist) =
+  | dnil(snil())
+  | {a: int} {sl: intlist} dcons(scons(a, sl)) of (int(a), dIntList(sl))
 
-// Main function
+fun max {l: intlist} (l: dIntList(l)): [r: int] (MAX(l, r) | int(r)) =
+    case l of
+    | dnil() => (MAX_NIL() | 0)
+    | dcons(x, l) => let
+        val (pf | m) = max(l)
+      in
+        if m > x
+          then (MAX_CONS1(pf) | m)
+          else (MAX_CONS2(pf) | x)
+      end
+
+// Some tests
 implement main0() = {
     // call your functions on some inputs and print the results!
+    val () = println!("Dot: ", dot( list_cons(5, list_cons(4, list_nil())), list_cons(~1, list_cons(2, list_nil()))   ))
+    val () = println!("Partial Sum: ", partialsum( list_cons(5, list_cons(4, list_cons(~1, list_cons(2, list_nil()))))))
 
+    val (_ | b) = is_even(102)
+    val () = println!("Is Even: 102 = ", b)
+    
+    val (_ | m) = max(dcons(5, dcons(4, dcons(10, dcons(2, dnil())))))
+    val () = println!("Max: ", m)
 }
 
 
