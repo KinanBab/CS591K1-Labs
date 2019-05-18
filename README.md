@@ -7,6 +7,7 @@ The repository contains code samples in Coq, ATS, Agda, and Lean, in the order c
 ## Installation - VirtualBox Image
 
 We provide a [VirtualBox VDI image](https://www.dropbox.com/s/291i8w6eglnppa8/CS591K1.zip) shipped with working installations of all the languages and tools we use (UPDATE: The virtual image has been removed due to filling up dropbox, if you need it, drop me a line).
+
 Uncompress the downloaded zip archive in a location of choosing, open the directory, and double click on CS591K1.vbox
 to run the virtual image with VirtualBox. The image contains Ubuntu 18.04.1 X64, with a single user `cs591k1` and password `cs591k1`. 
 
